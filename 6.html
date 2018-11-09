@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            user-select: none;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        header {
+            height: 80px;
+            line-height: 80px;
+            width: 100%;
+            border: 1px solid red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        header ul {
+            height: 80px;
+            display: flex;
+            list-style: none;
+            min-height: 570px;
+        }
+
+        header ul li {
+            height: 80px;
+            background: #eee;
+            cursor: pointer;
+            width: 150px;
+            text-align: center;
+        }
+
+        .div {
+            height: 20px;
+            width: 20px;
+            background: #000;
+            position: absolute;
+            left: 16px;
+            top: 53px;
+        }
+
+        header ul li.fristLi {
+            width: 50px
+        }
+
+        .page {
+            height: 100%;
+        }
+
+        .page1 div {
+            margin: 100px auto;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+
+        .page1 div.show {
+            -moz-transition: all 2s;
+            -moz-transform: scale(1.5);
+            transition: all 2s;
+            transform: scale(1.5);
+        }
+
+        .page2 div {
+            font-size: 30px;
+            color: red;
+            width: 200px;
+            opacity: 0;
+            transition: all 2s;
+            margin-left: -100px;
+
+        }
+
+        .page2 div.show {
+            transition: all 2s;
+            transform: translateX(800px);
+            opacity: 1;
+        }
+
+        .page3 div {
+            margin: 100px auto;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+
+        .page3 div.show {
+            transition: all 2s;
+            -moz-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
+        .page3 div.up {
+            transition: 2s;
+            transform: translateY(-20px);
+            -moz-transform: translateY(-20px);
+        }
+
+        .page4 div {
+            margin: 100px auto;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            background: green;
+        }
+
+        @keyframes myfirst {
+            0% {
+                background: red;
+            }
+
+            25% {
+                background: yellow;
+            }
+
+            50% {
+                background: blue;
+            }
+
+            100% {
+                background: green;
+            }
+        }
+
+        .page4 div.show {
+            animation: myfirst 3s;
+        }
+
+        .point {
+            position: fixed;
+            right: 50px;
+            top: 300px;
+            width: 30px;
+        }
+
+        .point ul {
+            height: 80px;
+            background: #eee;
+        }
+
+        .point ul li {
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .point ul li a {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid red;
+            border-radius: 50%;
+        }
+
+        .point ul li a.show {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <ul>
+            <li class="fristLi">1111</li>
+            <li>2222</li>
+            <li>3333</li>
+            <li>4444</li>
+        </ul>
+
+        <div class="div">
+        </div>
+    </header>
+
+    <div class="page page1" id="one">
+        第一页
+        <div>
+            111111
+
+        </div>
+        <div>
+
+            222222
+        </div>
+
+    </div>
+    <div class="page page2" id="two">
+        第二页
+        <div>
+            111111
+
+        </div>
+        <div>
+
+            222222
+        </div>
+    </div>
+    <div class="page page3" id="three">
+        第三页
+        <div>
+            111111
+
+        </div>
+        <div>
+
+            222222
+        </div>
+    </div>
+    <div class="page page4" id="four">
+        第四页
+        <div>
+            111111
+
+        </div>
+        <div>
+
+            222222
+        </div>
+    </div>
+
+    <div class="point">
+        <ul>
+            <li> <a href="#one" class="show"></a></li>
+            <li> <a href="#two"></a></li>
+            <li> <a href="#three"></a></li>
+            <li> <a href="#four"></a></li>
+        </ul>
+    </div>
+
+    <script>
+        var oli = document.querySelectorAll('header ul li')
+        var div = document.querySelector('.div')
+        var fristLi = document.querySelector('.fristLi')
+
+        function move() {
+            div.style.width = 0.2 * fristLi.offsetWidth + 'px';
+            for (let i = 0; i < oli.length; i++) {
+                oli[i].onclick = function (e) {
+                    console.log(66);
+
+                    div.style.transition = 'all 1s';
+                    if (i !== 0) {
+                        div.style.transform = `translateX(${oli[i].offsetWidth * i - 80}px)`;
+                    } else {
+                        div.style.transform = `translateX(${oli[i].offsetWidth * i}px)`;
+                    }
+                    div.style.width = 0.5 * oli[i].offsetWidth + 'px';
+                }
+            }
+        }
+        move()
+
+
+        var page = document.querySelectorAll('.page')
+        page.forEach(value => value.style.height = document.documentElement.offsetHeight + 'px')
+        var page2Div = document.querySelectorAll('.page2 div')
+        var page3Div = document.querySelectorAll('.page3 div')
+        var page4Div = document.querySelectorAll('.page4 div')
+        var a = document.querySelectorAll('.point ul li a')
+
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].index = i
+            const element = a[i];
+
+            element.onclick = function (ev) {
+                var target = ev.target;
+                console.log(target);
+
+                for (let i = 0; i < a.length; i++) {
+                    a[i].className = '';
+                    this.className = 'show'
+                }
+                page[this.index].querySelectorAll('div').forEach(value => value.className = 'show')
+                ev.cancelBubble = true;
+            }
+        }
+
+        var left = document.documentElement.offsetWidth / 2
+        var Top = document.documentElement.scrollHeight;
+
+
+        window.onscroll = function () {
+            var top = document.documentElement.scrollTop
+
+            for (let i = 0; i < page.length; i++) {
+                var height = page[i].offsetHeight;
+                if (top < 100) {
+                    a[0].classList.add('show')
+
+                    a[1].classList.contains('show') && a[1].classList.remove('show')
+                }
+                if (top > 100 && top < height) {
+                    var style = document.getElementsByTagName('style')[0]
+                    page2Div.forEach(value => value.style.cssText = `
+                     -moz-transition: all 2s;
+                    -moz-transform: translateX(${left}px);
+                    transform: translateX(${left}px);
+                    opacity: 1;`)
+                    for (let i = 0; i < a.length; i++) {
+                        if (a[i].classList.contains('show')) {
+                            a[i].classList.remove('show')
+                        }
+                        a[1].classList.add('show')
+                    }
+                } else if (top > height + 100 && top < 2 * height) {
+                    page3Div.forEach(value => value.classList.add('show'))
+                    for (let i = 0; i < a.length; i++) {
+                        if (a[i].classList.contains('show')) {
+                            a[i].classList.remove('show')
+                        }
+                        a[2].classList.add('show')
+                    }
+                } else if (top > 2 * height + 100) {
+                    for (let i = 0; i < a.length; i++) {
+                        if (a[i].classList.contains('show')) {
+                            a[i].classList.remove('show')
+                        }
+                        a[3].classList.add('show')
+                    }
+                    page4Div.forEach(value => value.classList.add('show'))
+                }
+            }
+        }
+
+
+        page2Div.forEach(value => {
+            value.onmouseenter = function (ev) {
+                value.style.cssText = `transform:translate(${left}px,-10px);opacity:1;`
+            }
+            value.onmouseout = function (ev) {
+                value.style.cssText = `
+                    transform: translateX(${left}px);
+                    opacity:1;`
+            }
+        })
+        page3Div.forEach(value => {
+            value.onmouseenter = function (ev) {
+                value.classList.add('up')
+            }
+            value.onmouseout = function (ev) {
+                value.classList.remove('up')
+            }
+        })
+
+        var page1Div = document.querySelectorAll('.page1 div')
+        window.onload = function () {
+            page1Div.forEach(value => value.classList.add('show'))
+        }
+    </script>
+
+</body>
+
+</html>
